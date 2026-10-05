@@ -7,7 +7,7 @@ import { Family } from "../models/Family.js";
 import { FamilyMember } from "../models/FamilyMember.js";
 import { memoryTypes, Memory } from "../models/Memory.js";
 import { findRelevantMemories } from "../services/memorySearch.js";
-import { generateAnswer } from "../services/lmStudio.js";
+import { generateAnswer } from "../services/llamaCpp.js";
 import {
     detectUploadContentType,
     getUploadPath,

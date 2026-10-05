@@ -23,7 +23,7 @@ export const env = {
     DB_URL: dbUrl,
     JWT_SECRET: jwtSecret,
     CLIENT_ORIGIN: process.env.CLIENT_ORIGIN ?? "http://localhost:5173",
-    LM_STUDIO_BASE_URL: process.env.LM_STUDIO_BASE_URL ?? "http://127.0.0.1:1234/v1",
-    LM_STUDIO_MODEL: process.env.LM_STUDIO_MODEL,
-    LM_STUDIO_API_KEY: process.env.LM_STUDIO_API_KEY
+    LLAMA_CPP_BASE_URL: process.env.LLAMA_CPP_BASE_URL ?? "http://127.0.0.1:8080/v1",
+    LLAMA_CPP_MODEL: process.env.LLAMA_CPP_MODEL,
+    LLAMA_CPP_API_KEY: process.env.LLAMA_CPP_API_KEY
 };

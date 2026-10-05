@@ -38,9 +38,15 @@ route. Memories can be associated with the account owner (“Me”) as well as
 multiple family members; leaving both unselected associates a memory with the
 whole family. Existing single-person associations are retained.
 
-The ask endpoint uses LM Studio's OpenAI-compatible Chat Completions API. Start
-the local server from LM Studio's Developer tab (port `1234` by default), then
-set `LM_STUDIO_MODEL` to the exact model identifier shown by its `/v1/models`
-endpoint. `LM_STUDIO_BASE_URL` defaults to `http://127.0.0.1:1234/v1`.
-`LM_STUDIO_API_KEY` is optional unless API authentication is enabled in LM
-Studio. The endpoint returns an answer and the memories used as sources.
+The ask endpoint uses llama.cpp's OpenAI-compatible Chat Completions API. Start
+`llama-server` with a Gemma 3 4B GGUF model and an alias, for example:
+
+```powershell
+llama-server -m "C:\path\to\gemma-3-4b-it-Q4_K_M.gguf" --host 127.0.0.1 --port 8080 --alias gemma-3-4b-it
+```
+
+Set `LLAMA_CPP_MODEL` to the same alias (`gemma-3-4b-it`) and
+`LLAMA_CPP_BASE_URL` to the server's OpenAI-compatible API root. The base URL
+defaults to `http://127.0.0.1:8080/v1`. `LLAMA_CPP_API_KEY` is optional and
+should be set only if the server was started with `--api-key`. The endpoint
+returns an answer and the memories used as sources.

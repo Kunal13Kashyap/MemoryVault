@@ -25,10 +25,10 @@ const getAnswer = (value: unknown) => {
 };
 
 export const generateAnswer = async (question: string, context: string) => {
-    if (!env.LM_STUDIO_MODEL) {
+    if (!env.LLAMA_CPP_MODEL) {
         throw new HttpError(
             503,
-            "Set LM_STUDIO_MODEL to the loaded model identifier from LM Studio's /v1/models endpoint"
+            "Set LLAMA_CPP_MODEL to the model alias configured for llama.cpp's server"
         );
     }
 
@@ -37,18 +37,18 @@ export const generateAnswer = async (question: string, context: string) => {
         "content-type": "application/json"
     };
 
-    if (env.LM_STUDIO_API_KEY) {
-        headers.authorization = `Bearer ${env.LM_STUDIO_API_KEY}`;
+    if (env.LLAMA_CPP_API_KEY) {
+        headers.authorization = `Bearer ${env.LLAMA_CPP_API_KEY}`;
     }
 
     try {
         response = await fetch(
-            `${env.LM_STUDIO_BASE_URL.replace(/\/+$/, "")}/chat/completions`,
+            `${env.LLAMA_CPP_BASE_URL.replace(/\/+$/, "")}/chat/completions`,
             {
                 method: "POST",
                 headers,
                 body: JSON.stringify({
-                    model: env.LM_STUDIO_MODEL,
+                    model: env.LLAMA_CPP_MODEL,
                     stream: false,
                     messages: [
                         {
@@ -68,13 +68,13 @@ export const generateAnswer = async (question: string, context: string) => {
     } catch {
         throw new HttpError(
             503,
-            "LM Studio is unavailable. Start its local server and make sure the configured model is loaded."
+            "llama.cpp server is unavailable. Start llama-server and make sure the configured model is loaded."
         );
     }
 
     if (!response.ok) {
-        console.error("LM Studio returned an error:", response.status);
-        throw new HttpError(502, "LM Studio could not answer the question");
+        console.error("llama.cpp server returned an error:", response.status);
+        throw new HttpError(502, "llama.cpp could not answer the question");
     }
 
     let result: unknown;
@@ -88,7 +88,7 @@ export const generateAnswer = async (question: string, context: string) => {
     const answer = getAnswer(result);
 
     if (typeof answer !== "string" || answer.trim().length === 0) {
-        throw new HttpError(502, "LM Studio returned an invalid response");
+        throw new HttpError(502, "llama.cpp returned an invalid response");
     }
 
     return answer;

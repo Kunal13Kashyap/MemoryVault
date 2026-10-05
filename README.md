@@ -5,8 +5,8 @@
 MemoryVault is a private family-memory app for collecting text memories and
 attachments, connecting them to the people they’re about, and asking questions
 about what you’ve saved. It has a React frontend and an Express/MongoDB API.
-The optional AI answers questions using a locally running model through
-[LM Studio](https://lmstudio.ai/).
+The optional AI answers questions using a locally running
+[llama.cpp](https://github.com/ggml-org/llama.cpp) server with Gemma 3 4B.
 
 ## Features
 
@@ -37,13 +37,13 @@ The optional AI answers questions using a locally running model through
 | Backend | Node.js, Express, TypeScript |
 | Database | MongoDB with Mongoose |
 | Authentication | Signed bearer tokens and password hashing |
-| Optional local AI | LM Studio OpenAI-compatible Chat Completions API |
+| Optional local AI | llama.cpp OpenAI-compatible Chat Completions API with Gemma 3 4B |
 
 ## Requirements
 
 - Node.js and npm (Node.js 22 LTS is recommended).
 - MongoDB, running locally or available through a connection URL.
-- LM Studio and a loaded chat model **only if you want to use “Ask your vault.”**
+- llama.cpp with a Gemma 3 4B GGUF model **only if you want to use “Ask your vault.”**
 
 ## Run locally
 
@@ -91,23 +91,28 @@ the frontend’s origin.
 
 ### 3. (Optional) Enable “Ask your vault”
 
-Start the local server in LM Studio and load a chat model. Find the exact model
-identifier from LM Studio’s `/v1/models` endpoint, then set these in
-`server/.env`:
+Start the llama.cpp server with your Gemma 3 4B GGUF file. The `--alias` value
+must match `LLAMA_CPP_MODEL` below:
 
-```dotenv
-LM_STUDIO_BASE_URL=http://127.0.0.1:1234/v1
-LM_STUDIO_MODEL=your-loaded-model-id
-# Set only if LM Studio API authentication is enabled:
-# LM_STUDIO_API_KEY=your-local-api-key
+```powershell
+llama-server -m "C:\path\to\gemma-3-4b-it-Q4_K_M.gguf" --host 127.0.0.1 --port 8080 --alias gemma-3-4b-it
 ```
 
-Restart the backend after changing its environment. The ask feature searches
-saved memory titles and text for relevant matches, then sends that context and
-the question to the local model. It does not use uploaded document or photo
-contents as AI context. If LM Studio is not configured, the rest of the app
-continues to work; asking a question returns an availability/configuration
-error.
+Set these in `server/.env`:
+
+```dotenv
+LLAMA_CPP_BASE_URL=http://127.0.0.1:8080/v1
+LLAMA_CPP_MODEL=gemma-3-4b-it
+# Set only if llama-server was started with --api-key:
+# LLAMA_CPP_API_KEY=your-local-api-key
+```
+
+Use a GGUF build of Gemma 3 4B that includes its chat template. Restart the
+backend after changing its environment. The ask feature searches saved memory
+titles and text for relevant matches, then sends that context and the question
+to llama.cpp. It does not use uploaded document or photo contents as AI context.
+If llama.cpp is not configured, the rest of the app continues to work; asking
+a question returns an availability/configuration error.
 
 ## Useful commands
 
