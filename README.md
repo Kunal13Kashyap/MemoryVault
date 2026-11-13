@@ -81,7 +81,7 @@ MemoryVault consists of three primary components:
 
 ### Hosted Application Architecture
 
-The deployed application uses a frontend-backend architecture with MongoDB as its primary data store.
+The deployed application follows a three-tier architecture consisting of a React frontend, an Express backend, and MongoDB for persistent data storage.
 
 ```mermaid
 flowchart TB
