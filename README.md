@@ -627,12 +627,6 @@ Key engineering concepts explored:
 
 The project's central idea is simple: **preserve personal memories and make them searchable through AI, without making a hosted proprietary LLM API a requirement.**
 
----
-
-## 📜 License
-
-This project is licensed under the terms specified in the repository's license file.
-
----
+Copyright (c) 2026 Kunal Kashyap. All rights reserved.
 
 **Built with ❤️ to preserve the memories that matter.**
