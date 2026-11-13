@@ -23,10 +23,6 @@ The project follows a **hybrid deployment architecture**: the frontend and backe
 
 ## 📸 Screenshots
 
-*Explore the MemoryVault interface and its core functionality.*
-
-> Add your screenshots to `docs/screenshots/` in the repository and use the filenames below, or update the paths to match your actual files.
-
 ### Dashboard
 
 ![MemoryVault Dashboard](docs/screenshots/dashboard.png)
