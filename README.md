@@ -10,6 +10,20 @@ The project follows a **hybrid deployment architecture**: the frontend and backe
 
 ---
 
+## 🏆 Hacktoberfest 2026 — Build for a Friend
+
+MemoryVault was built as part of the **Hacktoberfest 2026 Weekend Challenge: Build for a Friend**.
+
+The challenge focused on building meaningful solutions for people we care about, powered by open-source AI.
+
+MemoryVault explores this idea through a privacy-focused family memory application, allowing people to preserve personal stories, recipes, photographs, and family moments while keeping AI-powered memory retrieval under their control.
+
+**Open-source AI at its core:** Gemma 3 4B runs locally through llama.cpp, enabling private inference without depending on an external hosted LLM API.
+
+[View the Hacktoberfest Challenge](https://dev.to/challenges/hacktoberfest-weekend-2026-10-01)
+
+---
+
 ## 🚀 Live Demo
 
 | Component | Link |
